@@ -4,6 +4,7 @@ import NavBar from '../components/NavBar/NavBar';
 import HeroBanner from '../components/HeroBanner/HeroBanner';
 import AboutUs from '../components/WhoWeAre/AboutUs';
 import OurVolunteers from '../components/OurVolunteers/OurVolunteers';
+import OurCampaigns from '../components/OurCampaigns/OurCampaigns';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <HeroBanner></HeroBanner>
             <AboutUs></AboutUs>
             <OurVolunteers></OurVolunteers>
+            <OurCampaigns></OurCampaigns>
         </div>
     );
 };

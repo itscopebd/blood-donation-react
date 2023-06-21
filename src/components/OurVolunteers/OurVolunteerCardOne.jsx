@@ -2,7 +2,7 @@ import team1 from '../../assets/image/team1.png';
 import team2 from '../../assets/image/team2.png';
 import team3 from '../../assets/image/team3.png';
 
-import { FaBeer, FaFacebookF, FaGoogle, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaFacebookF, FaGoogle, FaLinkedin, FaTwitter } from 'react-icons/fa';
 const OurVolunteerCardOne = () => {
     return (
         <div className=''>
