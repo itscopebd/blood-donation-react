@@ -6,6 +6,7 @@ import AboutUs from '../components/WhoWeAre/AboutUs';
 import OurVolunteers from '../components/OurVolunteers/OurVolunteers';
 import OurCampaigns from '../components/OurCampaigns/OurCampaigns';
 import BecomeVolunteer from '../components/BecomeVolunteer/BecomeVolunteer';
+import Counter from '../components/Counter/Counter';
 
 const Home = () => {
     return (
@@ -17,6 +18,7 @@ const Home = () => {
             <OurVolunteers></OurVolunteers>
             <OurCampaigns></OurCampaigns>
             <BecomeVolunteer></BecomeVolunteer>
+            <Counter></Counter>
         </div>
     );
 };
