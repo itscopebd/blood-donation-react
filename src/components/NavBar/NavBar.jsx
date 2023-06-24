@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../../assets/image/logo.png'
 const NavBar = () => {
 
@@ -49,7 +50,7 @@ const NavBar = () => {
                             </div>
                         </label>
                         :
-                        <li> <a className="btn btn-sm bg-primary text-white hover:bg-black">LogIn</a></li>
+                        <li> <Link to="/singup" className="btn btn-sm bg-primary text-white hover:bg-black">LogIn</Link></li>
                             
 
                             

@@ -4,7 +4,8 @@ import CountUp from 'react-countup';
 import ScrollTrigger from 'react-scroll-trigger';
 import { FaCalendarAlt, FaHeartbeat, FaStethoscope, FaUser, FaUsers } from 'react-icons/fa';
 const Counter = () => {
-    const [onCount, setOnCount] = useState(false)
+    const [onCount, setOnCount] = useState(false);
+    
     return (
         <div className='bgCounter relative h-96 my-20'>
 
