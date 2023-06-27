@@ -1,27 +1,52 @@
 
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import registration from '../../assets/image/registration.jpg';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
+import { FaGoogle } from 'react-icons/fa';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 const SingUp = () => {
-    const { createUser, UpdateUserProfile } = useContext(AuthContext);
-
+    const { createUser, UpdateUserProfile, singInWithGoogle } = useContext(AuthContext);
+    const [matchPassword, setMatchPassword] = useState('');
+    const [btnLoading, setBtnLoading] = useState(false)
     const location = useLocation();
     const navigate = useNavigate();
 
     const Image_Host_key = import.meta.env.VITE_IMAGE_HOST_SECRECT_KEY;
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
+
+
+    // singin with google 
+
+    const singGoogle = () => {
+        setBtnLoading(true)
+
+        singInWithGoogle()
+            .then(res => {
+                setBtnLoading(false)
+
+            })
+            .catch(error => console.log(error))
+    }
+
+
+
     const onSubmit = data => {
 
         const email = data.email;
-
         const fromData = new FormData();
         fromData.append('image', data.image[0])
         const imageHostUrl = `https://api.imgbb.com/1/upload?key=${Image_Host_key}`
         const password = data.password;
+        const cpassword = data.cpassword;
+        if (password !== cpassword) {
+            setMatchPassword("Password Not Match!!");
+            return;
+        }
+        setBtnLoading(true)
         createUser(email, password)
             .then(res => {
                 Swal.fire({
@@ -42,13 +67,10 @@ const SingUp = () => {
                     .then(resImage => {
                         const imgUrl = resImage.data.display_url;
                         UpdateUserProfile(data.name, imgUrl)
-
+                        setBtnLoading(false)
                     }).catch(error => {
                         console.log(error)
                     })
-
-
-
             })
             .catch(error => {
                 console.log(error)
@@ -77,7 +99,16 @@ const SingUp = () => {
                                     </div>
                                     <div className='w-full'>
                                         <label>Password <span className='text-primary'>*</span></label>
-                                        <input type='password' {...register('password', { required: true })} placeholder="Password" className="input input-bordered w-full" />
+                                        <input type='password' {...register('password', {
+                                            required: true,
+                                            pattern: /(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])/
+                                        })} placeholder="Password" className="input input-bordered w-full" />
+                                        {
+                                            errors.password?.type === 'pattern' && <p className='text-red-500'>Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:</p>
+                                        }
+                                        {
+                                            matchPassword && <p className='text-red-500'>{matchPassword}</p>
+                                        }
                                     </div>
                                     <div className='w-full'>
                                         <label>Confirm Password <span className='text-primary'>*</span></label>
@@ -97,8 +128,17 @@ const SingUp = () => {
                                         </select>
                                     </div>
 
-                                    <input type="submit" className='btn bg-primary text-white hover:bg-black border-none' />
+                                    <button type="submit" className='btn bg-primary capitalize text-white hover:bg-black border-none'> {btnLoading ? <span className="loading loading-spinner loading-md"></span>
+                                        : "Submit"} </button>
                                 </form>
+                            </div>
+                            <div className='text-center'>
+                                <h4 className='text-center text-2xl text-black'>Or</h4>
+                                <div className="divider my-0.5"></div>
+                                <button onClick={singGoogle} className="btn btn-circle btn-outline">
+                                    {btnLoading ? <span className="loading loading-spinner loading-md"></span>
+                                        : <FaGoogle></FaGoogle>}
+                                </button>
                             </div>
                         </div>
 
