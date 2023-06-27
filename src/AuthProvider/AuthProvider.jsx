@@ -22,11 +22,18 @@ const AuthProvider = ({ children }) => {
         const provider = new GoogleAuthProvider()
         return signInWithPopup(auth, provider)
     }
+
+
+    const loginWithPasswordAndEmail = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
     const user = {
         name: "Rofiq",
         createUser,
         UpdateUserProfile,
-        singInWithGoogle
+        singInWithGoogle,
+        loginWithPasswordAndEmail
     }
 
     return (

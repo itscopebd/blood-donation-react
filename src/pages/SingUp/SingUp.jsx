@@ -6,7 +6,7 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
 import { FaGoogle } from 'react-icons/fa';
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 const SingUp = () => {
     const { createUser, UpdateUserProfile, singInWithGoogle } = useContext(AuthContext);
     const [matchPassword, setMatchPassword] = useState('');
@@ -127,8 +127,11 @@ const SingUp = () => {
                                         </select>
                                     </div>
 
+                                    <div className='flex gap-5 items-center'>
                                     <button type="submit" className='btn bg-primary capitalize text-white hover:bg-black border-none'> {btnLoading ? <span className="loading loading-spinner loading-md"></span>
                                         : "Submit"} </button>
+                                        <p>Already have an account? <Link className='text-red-500' to="/login">LogIn Now</Link> </p>
+                                    </div>
                                 </form>
                             </div>
                             <div className='text-center'>
