@@ -18,7 +18,6 @@ const SingUp = () => {
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
 
-
     // singin with google 
 
     const singGoogle = () => {
@@ -32,7 +31,7 @@ const SingUp = () => {
             .catch(error => console.log(error))
     }
 
-
+// Registration with email and password 
 
     const onSubmit = data => {
 
