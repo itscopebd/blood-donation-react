@@ -67,10 +67,7 @@ const NavBar = () => {
                                     <button onClick={singOut} className="btn btn-sm bg-primary text-white capitalize hover:bg-black">Log OUt</button>
                                 </div>
                                     :
-                                    <li> <Link to="/singup" className="btn btn-sm bg-primary text-white hover:bg-black">LogIn</Link></li>
-
-
-
+                                    <li> <Link to="/login" className="btn btn-sm bg-primary text-white hover:bg-black">LogIn</Link></li>
                             }
 
 

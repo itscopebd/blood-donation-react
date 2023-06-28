@@ -31,7 +31,7 @@ const SingUp = () => {
             .catch(error => console.log(error))
     }
 
-// Registration with email and password 
+    // Registration with email and password 
 
     const onSubmit = data => {
 
@@ -48,17 +48,8 @@ const SingUp = () => {
         setBtnLoading(true)
         createUser(email, password)
             .then(res => {
-                Swal.fire({
-                    title: 'Registration Success!!',
-                    showClass: {
-                        popup: 'animate__animated animate__fadeInDown'
-                    },
-                    hideClass: {
-                        popup: 'animate__animated animate__fadeOutUp'
-                    }
-                })
-                console.log(res)
-                // navigate("/")
+               
+                
                 fetch(imageHostUrl, {
                     method: "POST",
                     body: fromData
@@ -66,7 +57,33 @@ const SingUp = () => {
                     .then(resImage => {
                         const imgUrl = resImage.data.display_url;
                         UpdateUserProfile(data.name, imgUrl)
-                        setBtnLoading(false)
+
+                        // save user information data database 
+                        const saveData = { name: data.name, email: email, image: imgUrl, gendar: data.gender }
+                        fetch('http://localhost:5000/users', {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json"
+                            },
+                            body: JSON.stringify(saveData)
+                        })
+                        .then(res=>res.json())
+                        .then(data=>{
+                    
+                            Swal.fire({
+                                title: 'Registration Success!!',
+                                showClass: {
+                                    popup: 'animate__animated animate__fadeInDown'
+                                },
+                                hideClass: {
+                                    popup: 'animate__animated animate__fadeOutUp'
+                                }
+                            })
+                            
+                            setBtnLoading(false)
+                            navigate("/")
+                        })
+                       
                     }).catch(error => {
                         console.log(error)
                     })
@@ -128,8 +145,8 @@ const SingUp = () => {
                                     </div>
 
                                     <div className='flex gap-5 items-center'>
-                                    <button type="submit" className='btn bg-primary capitalize text-white hover:bg-black border-none'> {btnLoading ? <span className="loading loading-spinner loading-md"></span>
-                                        : "Submit"} </button>
+                                        <button type="submit" className='btn bg-primary capitalize text-white hover:bg-black border-none'> {btnLoading ? <span className="loading loading-spinner loading-md"></span>
+                                            : "Submit"} </button>
                                         <p>Already have an account? <Link className='text-red-500' to="/login">LogIn Now</Link> </p>
                                     </div>
                                 </form>
