@@ -5,8 +5,9 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
 import { FaGoogle } from 'react-icons/fa';
-
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
+
 const SingUp = () => {
     const { createUser, UpdateUserProfile, singInWithGoogle } = useContext(AuthContext);
     const [matchPassword, setMatchPassword] = useState('');
@@ -35,6 +36,9 @@ const SingUp = () => {
 
     const onSubmit = data => {
 
+        const unique_id = uuid();
+        const createUserId = unique_id.slice(0, 4)
+console.log(data)
         const email = data.email;
         const fromData = new FormData();
         fromData.append('image', data.image[0])
@@ -48,8 +52,8 @@ const SingUp = () => {
         setBtnLoading(true)
         createUser(email, password)
             .then(res => {
-               
-                
+
+
                 fetch(imageHostUrl, {
                     method: "POST",
                     body: fromData
@@ -59,7 +63,7 @@ const SingUp = () => {
                         UpdateUserProfile(data.name, imgUrl)
 
                         // save user information data database 
-                        const saveData = { name: data.name, email: email, image: imgUrl, gendar: data.gender }
+                        const saveData = { userId:createUserId,name: data.name, email: email, image: imgUrl,phone:data.phone, gendar: data.gender }
                         fetch('http://localhost:5000/users', {
                             method: "POST",
                             headers: {
@@ -67,23 +71,23 @@ const SingUp = () => {
                             },
                             body: JSON.stringify(saveData)
                         })
-                        .then(res=>res.json())
-                        .then(data=>{
-                    
-                            Swal.fire({
-                                title: 'Registration Success!!',
-                                showClass: {
-                                    popup: 'animate__animated animate__fadeInDown'
-                                },
-                                hideClass: {
-                                    popup: 'animate__animated animate__fadeOutUp'
-                                }
+                            .then(res => res.json())
+                            .then(data => {
+
+                                Swal.fire({
+                                    title: 'Registration Success!!',
+                                    showClass: {
+                                        popup: 'animate__animated animate__fadeInDown'
+                                    },
+                                    hideClass: {
+                                        popup: 'animate__animated animate__fadeOutUp'
+                                    }
+                                })
+
+                                setBtnLoading(false)
+                                navigate("/")
                             })
-                            
-                            setBtnLoading(false)
-                            navigate("/")
-                        })
-                       
+
                     }).catch(error => {
                         console.log(error)
                     })
@@ -134,7 +138,11 @@ const SingUp = () => {
                                         <label>Photo <span className='text-primary'>*</span></label>
                                         <input type='file' {...register('image', { required: true })} placeholder="Photo" className="file-input file-input-bordered w-full" />
                                     </div>
-                                    <div className='my-5 w-full'>
+                                    <div className='w-full'>
+                                        <label>Phone number <span className='text-primary'>*</span></label>
+                                        <input type='number' {...register('phone', { required: true })} placeholder="Enter Your Phone Number" className="file-input file-input-bordered w-full" />
+                                    </div>
+                                    <div className='mb-5 w-full'>
                                         <label className=''>Gender <span className='text-primary'>*</span></label>
                                         <select className='select select-bordered w-full' {...register("gender", { required: true })}>
                                             <option value="">Select Gender</option>

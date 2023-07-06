@@ -25,7 +25,7 @@ const NavBar = () => {
         <li><a className='font-medium text-lg hover:bg-transparent hover:text-primary'>About Us</a></li>
         <li><a className='font-medium text-lg hover:bg-transparent hover:text-primary'>Contact Us</a></li>
         {
-            user && user ? <li><a className='font-medium text-lg hover:bg-transparent hover:text-primary'>Dashboard</a></li> : ""
+            user && user ? <li><Link to='/dashboard' className='font-medium text-lg hover:bg-transparent hover:text-primary'>Dashboard</Link></li> : ""
         }
 
 
