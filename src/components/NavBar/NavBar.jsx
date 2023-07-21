@@ -16,7 +16,6 @@ const NavBar = () => {
             })
     }
 
-    console.log(user)
     const navBar = <>
 
         <li><a className='font-medium text-lg hover:bg-transparent hover:text-primary'>Home</a></li>
@@ -60,7 +59,7 @@ const NavBar = () => {
                             {
                                 user && user ? <div className='flex gap-2 items-center'> <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                     <div className="w-10 rounded-full">
-                                        <img src={user.photoURL} />
+                                        <img src={user?.photoURL} />
 
                                     </div>
                                 </label>

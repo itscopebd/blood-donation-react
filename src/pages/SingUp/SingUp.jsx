@@ -38,7 +38,7 @@ const SingUp = () => {
 
         const unique_id = uuid();
         const createUserId = unique_id.slice(0, 4)
-console.log(data)
+        console.log(data)
         const email = data.email;
         const fromData = new FormData();
         fromData.append('image', data.image[0])
@@ -59,11 +59,13 @@ console.log(data)
                     body: fromData
                 }).then(res => res.json())
                     .then(resImage => {
+                        console.log(resImage)
+
                         const imgUrl = resImage.data.display_url;
                         UpdateUserProfile(data.name, imgUrl)
 
                         // save user information data database 
-                        const saveData = { userId:createUserId,name: data.name, email: email, image: imgUrl,phone:data.phone, gendar: data.gender }
+                        const saveData = { userId: createUserId, name: data.name, email: email, image: imgUrl, phone: data.phone, gendar: data.gender }
                         fetch('http://localhost:5000/users', {
                             method: "POST",
                             headers: {
@@ -95,7 +97,7 @@ console.log(data)
             .catch(error => {
                 console.log(error)
             })
-        console.log(email, password)
+        
     }
     return (
         <div>
