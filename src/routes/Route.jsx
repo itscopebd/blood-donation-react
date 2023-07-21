@@ -35,8 +35,8 @@ const router= createBrowserRouter([
         children:[
             {
                 path:"applydonation",
-                element:<ApplyDonation></ApplyDonation>,
-                loader:(params)=>fetch(`http://localhost:5000/users/${params.email}`)
+                element:<ApplyDonation></ApplyDonation>
+                
             }
         ]
     }

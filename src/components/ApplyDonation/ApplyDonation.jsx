@@ -10,12 +10,15 @@ const ApplyDonation = () => {
     const [btnLoading, setBtnLoading] = useState(false)
     const [ message,setMessage ] = useState({})
     const { user } = useContext(AuthContext);
+
+
+    
  
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const onSubmit = data => {
 
         
-        const saveDonationsInfo = { name: user?.displayName, image: user?.photoURL, phone: user?.phoneNumber, email:user?.email, bloodGroup: data.bloodgroup, paddress: data.paddress, parmanentAddress: data.parmanentAddress, gender: data.gender,isAdmin:false,isAuthor:false }
+        const saveDonationsInfo = { name: user?.displayName, image: user?.photoURL, phone: user?.phoneNumber, email:user?.email, bloodGroup: data.bloodgroup, paddress: data.paddress, parmanentAddress: data.parmanentAddress, gender: data.gender}
         console.log(saveDonationsInfo)
         fetch(`http://localhost:5000/addDonations?email=${user?.email}`, {
             method: "POST",
