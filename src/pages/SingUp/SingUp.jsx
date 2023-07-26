@@ -66,7 +66,7 @@ const SingUp = () => {
 
                         // save user information data database 
                         const saveData = { userId: createUserId, name: data.name, email: email, image: imgUrl, phone: data.phone, gendar: data.gender,role:"user" }
-                        fetch('http://localhost:5000/users', {
+                        fetch('http://localhost:3000/users', {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"

@@ -7,12 +7,12 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const Dashboard = () => {
     const { user } = useContext(AuthContext);
-    const { data, error, isLoading } = useSWR(`http://localhost:5000/userCheck?email=${user?.email}`, fetcher)
+
+    const { data, error, isLoading } = useSWR(`http://localhost:3000/userCheck?email=${user?.email}`, fetcher)
 
     if (error) return <div>failed to load</div>
     if (isLoading) return <div className="absolute top-2/4 translate-y-2/4 left-2/4 translate-x-2/4"> 
     <ScaleLoader color="#36d7b7" /></div>
-
 
     return (
         <div>
@@ -39,7 +39,10 @@ const Dashboard = () => {
                                 ?
                                 <>
                                     <li><Link to="/dashboard">Admin Home</Link></li>
-                                    <li><Link to='/dashboard/applydonation'>All Donation</Link></li></> : data.role === 'author'
+                                    <li><Link to='/dashboard/manageuser'>Manage User</Link></li>
+                                    <li><Link to='/dashboard/managedonar'>Manage Donar</Link></li>
+                                    </>
+                                     : data.role === 'author'
                                     ?
                                     <> <li><Link to="/dashboard">Author Home</Link></li>
                                         <li><Link to='/dashboard/applydonation'>Details</Link></li></>
